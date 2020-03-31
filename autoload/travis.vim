@@ -1,24 +1,24 @@
 " File: autoload/travis.vim
 
 " Setup ------ {{{
-let s:travis_ran = 0
+let s:statis_ran = 0
 let s:plug = expand("<sfile>:p:h:h")
-let s:bname = '__Travis__'
+let s:bname = '__Statis__'
 let s:python_version = 'python '
 let s:pyfile_version = 'pyfile '
 
 function! s:Setup()
   if !s:travis_ran
-    let s:script = s:plug . '/travis/travis.py'
+    let s:script = s:plug . '/statis/statis.py'
     execute s:python_version . 'import sys'
     execute s:python_version . 'sys.path.append("' . s:plug . '")'
     execute s:pyfile_version . s:script
-    let s:travis_ran = 1
+    let s:statis_ran = 1
   endif
 endfunction
 " }}}
 
-function! travis#Travis()
+function! statis#Statis()
   call s:Setup()
   call s:ClearWindow(s:bname)
 
@@ -58,7 +58,7 @@ endfunction
 
 function! s:MapKeys()
   nnoremap <buffer> <silent>   q  :<C-U>bdelete<CR>
-  nnoremap <buffer>            r  :Travis<CR>
+  nnoremap <buffer>            r  :Statis<CR>
   nnoremap <buffer> <CR>          :call <SID>OpenLineURL()<CR>
   if exists(":Gbrowse") == 2
     nnoremap <buffer>          gt :call <SID>OpenSourceURL('.')<CR>
@@ -90,7 +90,7 @@ function! s:Instructions()
     return s:keys_text
   endif
 
-  let s:keys_text = "travis.vim keys: q=quit/r=refresh/<CR>=open build URL"
+  let s:keys_text = "statis.vim keys: q=quit/r=refresh/<CR>=open build URL"
   if exists(":Gbrowse") == 2
     let s:keys_text .= "/gt=open source URL/gl=open last commit"
   end
